@@ -1,14 +1,17 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 5000;
+const path = require('path');
 
-// Define a route handler for the root path
+// Serve static files from the 'static' directory
+app.use(express.static(path.join(__dirname, 'static')));
+
+// Define your Flask app route
 app.get('/', (req, res) => {
-  res.send('Hello, this is your Book Mania app!');
+    res.sendFile(path.join(__dirname, 'templates', 'index.html'));
 });
 
-// Add more route handlers or integrate with Flask API as needed
-
+// Start the server
+const port = process.env.PORT || 5000;
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+    console.log(`Server is running on port ${port}`);
 });
